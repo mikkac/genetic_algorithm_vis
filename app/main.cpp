@@ -2,9 +2,11 @@
 
 #include <QApplication>
 #include <QQmlApplicationEngine>
+#include <QQmlContext>
 
-#include "configparser.hpp"
-#include "environment.hpp"
+#include "algorithm_data_model.hpp"
+// #include "configparser.hpp"
+// #include "environment.hpp"
 
 int main(int argc, char **argv) {
     // gen::Configuration config;
@@ -19,6 +21,8 @@ int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    engine.rootContext()->setContextProperty("AlgorithmDataModel",
+                                             new AlgorithmDataModel());
     const QUrl url(u"qrc:/genetic_algorithm/main.qml"_qs);
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated, &app,

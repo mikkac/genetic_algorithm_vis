@@ -38,8 +38,21 @@ Window {
         anchors.fill: parent
         spacing: 0
 
+        Connections {
+            target: AlgorithmDataModel
+            function onDataChanged() {
+                console.log(AlgorithmDataModel.data.length)
+                lineSeries.removePoints(0, lineSeries.count)
+                for (var i = 0; i < AlgorithmDataModel.data.length; i++) {
+                    lineSeries.append(AlgorithmDataModel.data[i].x, AlgorithmDataModel.data[i].y)
+                    console.log(AlgorithmDataModel.data[i].x, AlgorithmDataModel.data[i].y)
+                }
+
+            }
+        }
+
         ChartView {
-            title: "Line"
+            id: chartView
             width: 640
             height: 480
             antialiasing: true
@@ -48,69 +61,87 @@ Window {
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             theme: ChartView.ChartThemeBlueNcs
 
+            ValueAxis {
+                id: axisY
+                min: 0
+                max: 100000
+                gridVisible: true
+            }
+
+            ValueAxis {
+                id: axisX
+                min: 0
+                max: 1000
+                gridVisible: true
+                tickCount: 5
+            }
+
             LineSeries {
-                name: "LineSeries"
-                XYPoint { x: 0; y: 0 }
-                XYPoint { x: 1.1; y: 2.1 }
-                XYPoint { x: 1.9; y: 3.3 }
-                XYPoint { x: 2.1; y: 2.1 }
-                XYPoint { x: 2.9; y: 4.9 }
-                XYPoint { x: 3.4; y: 3.0 }
-                XYPoint { x: 4.1; y: 3.3 }
+                id: lineSeries
+                name: "signal 1"
+                axisX: axisX
+                axisY: axisY
             }
         }
+
+
         ColumnLayout {
             id: column
             width: 200
-            height: 400
+            height: 600
+            visible: true
+            clip: false
             Layout.bottomMargin: 2
             Layout.topMargin: 20
             Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
             Layout.fillHeight: true
             Layout.fillWidth: true
-            spacing: 10
+            spacing: 30
             Label {
                 id: label1
+                width: 200
                 text: qsTr("Genetic Algorithm")
-                Layout.rightMargin: 20
-                Layout.leftMargin: 20
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
+                Layout.fillHeight: false
+                Layout.fillWidth: true
+                Layout.rightMargin: 30
+                Layout.leftMargin: 30
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 font.family: "Ubuntu"
                 font.pointSize: 20
                 font.bold: true
             }
-            Grid {
-                id: grid
+            Button {
+                id: button
                 width: 200
-                height: 400
-                Layout.fillHeight: true
-                Layout.fillWidth: true
+                text: qsTr("START")
                 Layout.rightMargin: 30
                 Layout.leftMargin: 30
-                Layout.alignment: Qt.AlignHCenter | Qt.AlignTop
-                spacing: 20
-                verticalItemAlignment: Grid.AlignVCenter
-                horizontalItemAlignment: Grid.AlignHCenter
-                columns: 2
-                Label {
-                    id: label
-                    text: qsTr("Label")
-                }
-                Button {
-                    id: button
-                    width: 130
-                    text: qsTr("START")
-                    highlighted: true
-                    flat: false
-                }
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                highlighted: true
+                flat: false
+                onClicked: AlgorithmDataModel.slotGenerateData()
+            }
 
+            Row {
+                id: row1
+                Layout.rightMargin: 30
+                Layout.leftMargin: 30
+                Layout.fillWidth: true
+                Layout.fillHeight: false
                 Label {
                     id: label2
-                    text: qsTr("Label")
+                    text: qsTr("Step (s)")
+//                    anchors.verticalCenter: parent.verticalCenter
+                    clip: false
                 }
 
                 Slider {
                     id: slider
+                    width: 180
+//                    anchors.verticalCenter: parent.verticalCenter
+//                    anchors.right: parent.right
+//                    anchors.rightMargin: 0
                     wheelEnabled: true
                     value: 0.5
                 }
