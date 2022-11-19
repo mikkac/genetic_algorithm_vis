@@ -1,11 +1,10 @@
 #include <spdlog/spdlog.h>
 
-#include <QGuiApplication>
+#include <QApplication>
 #include <QQmlApplicationEngine>
 
 #include "configparser.hpp"
 #include "environment.hpp"
-#include "utils.hpp"
 
 int main(int argc, char **argv) {
     // gen::Configuration config;
@@ -17,7 +16,7 @@ int main(int argc, char **argv) {
     //         return parsing_result;
     // }
 
-    QGuiApplication app(argc, argv);
+    QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
     const QUrl url(u"qrc:/genetic_algorithm/main.qml"_qs);

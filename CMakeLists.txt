@@ -21,7 +21,7 @@ set(CPP_EX_LIB "cpp_ex_lib")
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
 conan_basic_setup(TARGETS)
 
-find_package(Qt6 6.2 COMPONENTS Quick REQUIRED)
+find_package(Qt6 6.2 COMPONENTS Quick Widgets REQUIRED)
 
 add_subdirectory(app)
 
