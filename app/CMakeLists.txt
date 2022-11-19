@@ -18,5 +18,11 @@ add_library(${CPP_EX_LIB} ${CPP_EX_LIB_SRC} ${CPP_EX_LIB_INC})
 target_include_directories(${CPP_EX_LIB} PUBLIC inc)
 target_link_libraries(${CPP_EX_LIB} CONAN_PKG::cli11 CONAN_PKG::spdlog) 
 
-add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
-target_link_libraries(${PROJECT_NAME} ${CPP_EX_LIB})
+qt_add_executable(${PROJECT_NAME} ${CMAKE_CURRENT_SOURCE_DIR}/main.cpp)
+target_link_libraries(${PROJECT_NAME} PRIVATE ${CPP_EX_LIB} Qt6::Quick)
+
+qt_add_qml_module(${PROJECT_NAME}
+    URI genetic_algorithm
+    VERSION 1.0
+    QML_FILES main.qml 
+)
