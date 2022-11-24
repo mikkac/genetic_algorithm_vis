@@ -1,13 +1,14 @@
 #include <spdlog/spdlog.h>
 
 #include <QApplication>
+#include <QObject>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QThread>
 
+#include "algorithm_controller.hpp"
 #include "algorithm_data_model.hpp"
 // #include "configparser.hpp"
-#include "environment.hpp"
 
 int main(int argc, char **argv) {
     // gen::Configuration config;
@@ -22,8 +23,16 @@ int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
+    auto *algo_controller{new AlgorithmController(&app)};
+    auto *algo_data_model{new AlgorithmDataModel(&app)};
+    QObject::connect(algo_controller, &AlgorithmController::signalFinished,
+                     algo_data_model, &AlgorithmDataModel::slotFinished);
+
+    engine.rootContext()->setContextProperty("AlgorithmController",
+                                             algo_controller);
     engine.rootContext()->setContextProperty("AlgorithmDataModel",
-                                             new AlgorithmDataModel(&app));
+                                             algo_data_model);
+
     const QUrl url(u"qrc:/genetic_algorithm/main.qml"_qs);
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated, &app,

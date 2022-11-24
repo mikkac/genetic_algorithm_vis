@@ -130,6 +130,8 @@ void Environment::run(std::size_t steps) {
     spdlog::info("Average estimations:");
     for (int i{0}; i < m_avg_estimations.size(); ++i)
         spdlog::info("\t{}\t{}", i, m_avg_estimations[i]);
+
+    emit signalFinished(m_avg_estimations);
 }
 
 void Environment::printPopulation() const {

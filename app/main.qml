@@ -40,7 +40,7 @@ Window {
 
         Connections {
             target: AlgorithmDataModel
-            function onDataChanged() {
+            function onSignalDataChanged() {
                 console.log(AlgorithmDataModel.data.length)
                 lineSeries.removePoints(0, lineSeries.count)
                 for (var i = 0; i < AlgorithmDataModel.data.length; i++) {
@@ -120,7 +120,7 @@ Window {
                 Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                 highlighted: true
                 flat: false
-                onClicked: AlgorithmDataModel.slotGenerateData()
+                onClicked: AlgorithmController.slotRunAlgorithm()
             }
 
             Row {

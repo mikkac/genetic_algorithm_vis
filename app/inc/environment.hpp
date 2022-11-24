@@ -2,13 +2,15 @@
 
 #include <spdlog/spdlog.h>
 
+#include <QObject>
 #include <cstdint>
 #include <functional>
 
 #include "individual.hpp"
 
 namespace gen {
-class Environment {
+class Environment : public QObject {
+    Q_OBJECT
    public:
     using EstimateFunction =
         std::function<double(const Individual& individual)>;
@@ -25,6 +27,9 @@ class Environment {
                          const std::string& desc) const;
 
     std::vector<double> getResults() const;
+
+   signals:
+    void signalFinished(const std::vector<double>& results);
 
    private:
     Population m_population;

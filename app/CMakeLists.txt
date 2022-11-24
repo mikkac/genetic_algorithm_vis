@@ -1,6 +1,7 @@
 include_directories(inc)
 
 set(CPP_EX_LIB_SRC
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/algorithm_controller.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/algorithm_data_model.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/configparser.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/environment.cpp
@@ -10,6 +11,7 @@ set(CPP_EX_LIB_SRC
 )
 
 set(CPP_EX_LIB_INC
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_controller.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_data_model.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/configparser.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/environment.hpp
