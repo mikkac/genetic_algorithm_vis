@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.24)
 
-project(cpp_example LANGUAGES CXX)
+project(genetic_algorithm_vis LANGUAGES CXX)
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
@@ -15,7 +15,7 @@ if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
        add_compile_options (-fcolor-diagnostics)
 endif()
 
-set(CPP_EX_LIB "cpp_ex_lib")
+set(GEN_ALGO_LIB "gen_algo_lib")
 
 # Take care of conan
 include(${CMAKE_BINARY_DIR}/conanbuildinfo.cmake)
