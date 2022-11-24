@@ -24,15 +24,7 @@ ApplicationWindow {
         Connections {
             target: AlgorithmDataModel
             function onSignalDataChanged() {
-                console.log(AlgorithmDataModel.data.length);
-                lineSeries.removePoints(0, lineSeries.count);
-                for (var i = 0; i < AlgorithmDataModel.data.length; i++) {
-                    lineSeries.append(AlgorithmDataModel.data[i].x,
-                                      AlgorithmDataModel.data[i].y);
-                    console.log(AlgorithmDataModel.data[i].x,
-                                AlgorithmDataModel.data[i].y);
-                }
-                runButton.enabled = true;
+                runButton.enabled = true
             }
         }
 
@@ -45,29 +37,61 @@ ApplicationWindow {
             Layout.fillWidth: true
             Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
             theme: ChartView.ChartThemeBlueNcs
-
-            ValueAxis {
-                id: axisY
-                min: 0
-                max: 300000
-                gridVisible: true
-                tickCount: 10
-            }
-
-            ValueAxis {
-                id: axisX
-                min: 0
-                max: 300
-                gridVisible: true
-                tickCount: 10
-            }
-
+            animationOptions: ChartView.AllAnimations
             LineSeries {
-                id: lineSeries
-                name: "signal 1"
-                axisX: axisX
-                axisY: axisY
+                id: serie1
+
+                axisX: ValueAxis {
+                    id: xAxis
+                    min: AlgorithmDataModel.xMin
+                    max: AlgorithmDataModel.xMax
+                }
+
+                axisY: ValueAxis {
+                    id: yAxis
+                    min: AlgorithmDataModel.yMin
+                    max: AlgorithmDataModel.yMax
+                }
+
+                VXYModelMapper {
+                    id: mapper
+                    series: serie1
+                    xColumn: 0
+                    yColumn: 1
+                    model: AlgorithmDataModel
+                    Component.onCompleted: console.log("loaded VXYModelMapper: xColumn " + mapper.xColumn + " yColumn " + mapper.yColumn)
+                }
             }
+
+            //            ValueAxis {
+            //                id: axisY
+            //                min: 0
+            //                max: 300000
+            //                gridVisible: true
+            //                tickCount: 10
+            //            }
+
+            //            ValueAxis {
+            //                id: axisX
+            //                min: 0
+            //                max: 300
+            //                gridVisible: true
+            //                tickCount: 10
+            //            }
+
+            //            VXYModelMapper {
+            //                id: mapper
+            //                xColumn: 0
+            //                yColumn: 1
+            //                model: chartModel
+            //            }
+
+            //            LineSeries {
+            //                id: lineSeries
+            //                name: "signal 1"
+            //                axisX: axisX
+            //                axisY: axisY
+            //            }
         }
 
         ColumnLayout {
@@ -108,7 +132,7 @@ ApplicationWindow {
                 onClicked: {
                     runButton.enabled = false
                     AlgorithmController.slotRunAlgorithm()
-                } 
+                }
             }
 
             RowLayout {
