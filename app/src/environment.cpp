@@ -50,13 +50,34 @@ gen::Individual mutate(const gen::Individual& individual, std::size_t bit) {
 }  // namespace
 
 namespace gen {
-Environment::Environment(std::size_t individuals_n,
+Environment::Environment(std::size_t individuals_n, std::size_t steps,
                          EstimateFunction&& estimate_func)
-    : m_population{individuals_n}, m_estimate_func{std::move(estimate_func)} {}
+    : m_population{individuals_n},
+      m_steps{steps},
+      m_estimate_func{std::move(estimate_func)} {
+    connect(this, &Environment::signalStart, this, &Environment::slotStarted);
+}
 
-void Environment::run(std::size_t steps) {
-    spdlog::info("Running simulation with {} steps", steps);
-    for (std::size_t step{0}; step < steps; ++step) {
+void Environment::printPopulation() const {
+    printPopulation(m_population, "Population");
+}
+
+void Environment::printPopulation(const Population& population,
+                                  const std::string& desc) const {
+    //    spdlog::info(desc);
+    //    for (const auto& individual : population)
+    //        spdlog::info("\tvalue: {}\testimate: {}",
+    //                     (int32_t)individual.getValue().to_ulong(),
+    //                     m_estimate_func(individual));
+}
+
+std::vector<double> Environment::getResults() const {
+    return m_avg_estimations;
+}
+
+void Environment::slotStarted() {
+    spdlog::info("Running simulation with {} steps", m_steps);
+    for (std::size_t step{0}; step < m_steps; ++step) {
         spdlog::info("Step {}", step + 1);
 
         // Estimates
@@ -134,20 +155,4 @@ void Environment::run(std::size_t steps) {
     emit signalFinished(m_avg_estimations);
 }
 
-void Environment::printPopulation() const {
-    printPopulation(m_population, "Population");
-}
-
-void Environment::printPopulation(const Population& population,
-                                  const std::string& desc) const {
-    //    spdlog::info(desc);
-    //    for (const auto& individual : population)
-    //        spdlog::info("\tvalue: {}\testimate: {}",
-    //                     (int32_t)individual.getValue().to_ulong(),
-    //                     m_estimate_func(individual));
-}
-
-std::vector<double> Environment::getResults() const {
-    return m_avg_estimations;
-}
 }  // namespace gen

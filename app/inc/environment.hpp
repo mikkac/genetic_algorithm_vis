@@ -17,10 +17,8 @@ class Environment : public QObject {
 
     using Population = std::vector<Individual>;
 
-    explicit Environment(std::size_t individuals_n,
+    explicit Environment(std::size_t individuals_n, std::size_t steps,
                          EstimateFunction&& estimate_func);
-
-    void run(std::size_t steps);
 
     void printPopulation() const;
     void printPopulation(const Population& population,
@@ -29,10 +27,15 @@ class Environment : public QObject {
     std::vector<double> getResults() const;
 
    signals:
+    void signalStart();
     void signalFinished(const std::vector<double>& results);
+
+   private slots:
+    void slotStarted();
 
    private:
     Population m_population;
+    std::size_t m_steps;
     EstimateFunction m_estimate_func;
     std::vector<double> m_avg_estimations;
     double m_mutation_prob{0.01};
