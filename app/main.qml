@@ -15,7 +15,7 @@ Window {
     Material.background: lightTheme ? backgroundGray : backgroundBlue
     Material.foreground: lightTheme ? "black" : "white"
     Material.accent: Material.Blue
-    Material.primary: lightTheme ?  lightGray : darkBlue
+    Material.primary: lightTheme ? lightGray : darkBlue
     readonly property int minimumWidth: 1280
     readonly property int minimumHeight: 1024
     readonly property int headerHeight: 100
@@ -44,10 +44,11 @@ Window {
                 console.log(AlgorithmDataModel.data.length)
                 lineSeries.removePoints(0, lineSeries.count)
                 for (var i = 0; i < AlgorithmDataModel.data.length; i++) {
-                    lineSeries.append(AlgorithmDataModel.data[i].x, AlgorithmDataModel.data[i].y)
-                    console.log(AlgorithmDataModel.data[i].x, AlgorithmDataModel.data[i].y)
+                    lineSeries.append(AlgorithmDataModel.data[i].x,
+                                      AlgorithmDataModel.data[i].y)
+                    console.log(AlgorithmDataModel.data[i].x,
+                                AlgorithmDataModel.data[i].y)
                 }
-
             }
         }
 
@@ -64,14 +65,14 @@ Window {
             ValueAxis {
                 id: axisY
                 min: 0
-                max: 100000
+                max: 300000
                 gridVisible: true
             }
 
             ValueAxis {
                 id: axisX
                 min: 0
-                max: 1000
+                max: 300
                 gridVisible: true
                 tickCount: 5
             }
@@ -83,7 +84,6 @@ Window {
                 axisY: axisY
             }
         }
-
 
         ColumnLayout {
             id: column
@@ -132,21 +132,20 @@ Window {
                 Label {
                     id: label2
                     text: qsTr("Step (s)")
-//                    anchors.verticalCenter: parent.verticalCenter
+                    //                    anchors.verticalCenter: parent.verticalCenter
                     clip: false
                 }
 
                 Slider {
                     id: slider
                     width: 180
-//                    anchors.verticalCenter: parent.verticalCenter
-//                    anchors.right: parent.right
-//                    anchors.rightMargin: 0
+                    //                    anchors.verticalCenter: parent.verticalCenter
+                    //                    anchors.right: parent.right
+                    //                    anchors.rightMargin: 0
                     wheelEnabled: true
                     value: 0.5
                 }
             }
-
         }
     }
 }

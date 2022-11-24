@@ -20,6 +20,5 @@ class AlgorithmDataModel : public QObject {
     void slotGenerateData();
 
    private:
-    QTimer *m_timer;
     QVector<QPointF> m_data{};
 };

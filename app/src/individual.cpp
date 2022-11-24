@@ -4,7 +4,7 @@
 
 namespace gen {
 
-Individual::Individual() : m_value{random_i(-1000, 1000)} {}
+Individual::Individual() : m_value(random_i(0, 5)) {}
 
 Individual::Individual(UnderlyingType init) : m_value{init} {}
 

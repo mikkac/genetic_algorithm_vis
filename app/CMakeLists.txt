@@ -6,6 +6,7 @@ set(CPP_EX_LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/environment.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/individual.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/utils.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/worker_thread.cpp
 )
 
 set(CPP_EX_LIB_INC
@@ -14,6 +15,7 @@ set(CPP_EX_LIB_INC
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/environment.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/individual.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/utils.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/worker_thread.hpp
 )
 
 add_library(${CPP_EX_LIB} ${CPP_EX_LIB_SRC} ${CPP_EX_LIB_INC})

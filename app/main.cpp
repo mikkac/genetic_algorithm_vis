@@ -3,10 +3,11 @@
 #include <QApplication>
 #include <QQmlApplicationEngine>
 #include <QQmlContext>
+#include <QThread>
 
 #include "algorithm_data_model.hpp"
 // #include "configparser.hpp"
-// #include "environment.hpp"
+#include "environment.hpp"
 
 int main(int argc, char **argv) {
     // gen::Configuration config;
@@ -22,7 +23,7 @@ int main(int argc, char **argv) {
 
     QQmlApplicationEngine engine;
     engine.rootContext()->setContextProperty("AlgorithmDataModel",
-                                             new AlgorithmDataModel());
+                                             new AlgorithmDataModel(&app));
     const QUrl url(u"qrc:/genetic_algorithm/main.qml"_qs);
     QObject::connect(
         &engine, &QQmlApplicationEngine::objectCreated, &app,
@@ -34,13 +35,13 @@ int main(int argc, char **argv) {
 
     return app.exec();
 
-    // gen::Environment env{10, [](const gen::Individual& individual) -> double
-    // {
-    //                          const auto x{individual.getValue()};
-    //                          return x * x;
-    //                      }};
+    //    gen::Environment env{
+    //        10, [](const gen::Individual& individual) -> double {
+    //            const auto x{(int32_t)individual.getValue().to_ulong()};
+    //            return 1 * x * x;
+    //        }};
 
-    // env.run(1);
+    //    env.run(30);
 
-    return 0;
+    //    return 0;
 }
