@@ -18,6 +18,8 @@ class Environment : public QObject {
     using Population = std::vector<Individual>;
 
     explicit Environment(std::size_t individuals_n, std::size_t steps,
+                         double mutation_probability,
+                         std::size_t mutated_bits_n, std::size_t crossing_pos,
                          EstimateFunction&& estimate_func);
 
     void printPopulation() const;
@@ -34,10 +36,12 @@ class Environment : public QObject {
     void slotStarted();
 
    private:
-    Population m_population;
-    std::size_t m_steps;
+    Population m_population{};
+    std::size_t m_steps{};
+    double m_mutation_probability{};
+    std::size_t m_mutated_bits_n{};
+    std::size_t m_crossing_pos{};
     EstimateFunction m_estimate_func;
     std::vector<double> m_avg_estimations;
-    double m_mutation_prob{0.01};
 };
 }  // namespace gen

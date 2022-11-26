@@ -4,10 +4,10 @@
 
 AlgorithmController::AlgorithmController(QObject* parent) : QObject(parent) {}
 
-void AlgorithmController::slotRunAlgorithm() {
+void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
+                                           std::size_t iterations) {
     std::size_t population_size{100};
     std::size_t iterations{1000};
-
     auto estimation_func{[](const gen::Individual& individual) -> double {
         const auto x{(int32_t)individual.getValue().to_ulong()};
         return 1 * x * x;

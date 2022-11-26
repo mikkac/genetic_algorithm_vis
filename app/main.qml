@@ -62,36 +62,6 @@ ApplicationWindow {
                     Component.onCompleted: console.log("loaded VXYModelMapper: xColumn " + mapper.xColumn + " yColumn " + mapper.yColumn)
                 }
             }
-
-            //            ValueAxis {
-            //                id: axisY
-            //                min: 0
-            //                max: 300000
-            //                gridVisible: true
-            //                tickCount: 10
-            //            }
-
-            //            ValueAxis {
-            //                id: axisX
-            //                min: 0
-            //                max: 300
-            //                gridVisible: true
-            //                tickCount: 10
-            //            }
-
-            //            VXYModelMapper {
-            //                id: mapper
-            //                xColumn: 0
-            //                yColumn: 1
-            //                model: chartModel
-            //            }
-
-            //            LineSeries {
-            //                id: lineSeries
-            //                name: "signal 1"
-            //                axisX: axisX
-            //                axisY: axisY
-            //            }
         }
 
         ColumnLayout {
@@ -145,16 +115,12 @@ ApplicationWindow {
                     id: label2
                     text: qsTr("Step (s)")
                     Layout.fillWidth: true
-                    //                    anchors.verticalCenter: parent.verticalCenter
                     clip: false
                 }
 
                 Slider {
                     id: slider
                     width: 180
-                    //                    anchors.verticalCenter: parent.verticalCenter
-                    //                    anchors.right: parent.right
-                    //                    anchors.rightMargin: 0
                     wheelEnabled: true
                     Layout.fillWidth: true
                     value: 0.5
