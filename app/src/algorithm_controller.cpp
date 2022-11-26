@@ -13,7 +13,7 @@ void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
                                            std::size_t crossing_pos) {
     auto estimation_func{[](const gen::Individual& individual) -> double {
         const auto x{(int32_t)individual.getValue().to_ulong()};
-        return 1 * x * x;
+        return x * x;
     }};
 
     gen::AlgorithmConfig config{};
