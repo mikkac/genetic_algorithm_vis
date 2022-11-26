@@ -50,16 +50,8 @@ gen::Individual mutate(const gen::Individual& individual, std::size_t bit) {
 }  // namespace
 
 namespace gen {
-Environment::Environment(std::size_t individuals_n, std::size_t steps,
-                         double mutation_probability,
-                         std::size_t mutated_bits_n, std::size_t crossing_pos,
-                         EstimateFunction&& estimate_func)
-    : m_population{individuals_n},
-      m_steps{steps},
-      m_mutation_probability{mutation_probability},
-      m_mutated_bits_n{mutated_bits_n},
-      m_crossing_pos{crossing_pos},
-      m_estimate_func{std::move(estimate_func)} {
+Environment::Environment(AlgorithmConfig&& config)
+    : m_population{config.population_size}, m_config{config} {
     connect(this, &Environment::signalStart, this, &Environment::slotStarted);
 }
 
@@ -77,15 +69,15 @@ void Environment::printPopulation(const Population& population,
 }
 
 void Environment::slotStarted() {
-    spdlog::info("Running simulation with {} steps", m_steps);
+    spdlog::info("Running simulation with {} steps", m_config.steps);
     AlgorithmResult result{};
-    for (std::size_t step{0}; step < m_steps; ++step) {
+    for (std::size_t step{0}; step < m_config.steps; ++step) {
         spdlog::info("Step {}", step + 1);
         result.steps.push_back(step + 1);
         // Estimates
         std::vector<float> estimates(m_population.size());
         for (std::size_t i{0}; i < m_population.size(); ++i) {
-            estimates[i] = m_estimate_func(m_population[i]);
+            estimates[i] = m_config.estimate_func(m_population[i]);
         }
 
         const auto total_estimation{
@@ -133,7 +125,7 @@ void Environment::slotStarted() {
         std::vector<Individual> crossed(m_population.size());
         for (int i{0}; i < candidates.size() - 1; ++i) {
             crossed[i] =
-                cross(candidates[i], candidates[i + 1], m_crossing_pos);
+                cross(candidates[i], candidates[i + 1], m_config.crossing_pos);
         }
         printPopulation(crossed, "Crossed");
 
@@ -141,10 +133,11 @@ void Environment::slotStarted() {
         std::vector<Individual> mutated;
         mutated.reserve(m_population.size());
         for (const auto& cross : crossed) {
-            if (random_d() < m_mutation_probability) {
+            if (random_d() < m_config.mutation_probability) {
                 mutated.push_back(mutate(
                     cross,
-                    random_i(0, m_mutated_bits_n)));  // Individual::Size - 1
+                    random_i(
+                        0, m_config.mutated_bits_n)));  // Individual::Size - 1
             } else {
                 mutated.push_back(cross);
             }

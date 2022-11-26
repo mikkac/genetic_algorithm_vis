@@ -9,6 +9,7 @@ set(GEN_ALGO_LIB_SRC
 )
 
 set(GEN_ALGO_LIB_INC
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_config.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_controller.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_data_model.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_result.hpp

@@ -15,7 +15,7 @@ class AlgorithmController : public QObject {
     void signalFinished(AlgorithmResult results);
 
    public slots:
-    void slotRunAlgorithm(std::size_t individuals_n, std::size_t steps,
+    void slotRunAlgorithm(std::size_t population_size, std::size_t steps,
                           double mutation_probability,
                           std::size_t mutated_bits_n, std::size_t crossing_pos);
 
