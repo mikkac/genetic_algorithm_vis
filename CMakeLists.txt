@@ -24,7 +24,3 @@ conan_basic_setup(TARGETS)
 find_package(Qt6 6.2 COMPONENTS Quick Widgets Core REQUIRED)
 
 add_subdirectory(app)
-
-
-enable_testing()
-add_subdirectory(unittests)
