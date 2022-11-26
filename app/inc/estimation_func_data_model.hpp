@@ -1,12 +1,11 @@
 #pragma once
 
 #include <QAbstractTableModel>
-#include <QPair>
-
-#include "algorithm_result.hpp"
+#include <utility>
+#include <vector>
 
 namespace gen {
-class AlgorithmDataModel : public QAbstractTableModel {
+class EstimationFuncDataModel : public QAbstractTableModel {
     Q_OBJECT
 
     Q_PROPERTY(double xMin READ getXMin NOTIFY signalDataChanged)
@@ -15,7 +14,7 @@ class AlgorithmDataModel : public QAbstractTableModel {
     Q_PROPERTY(double yMax READ getYMax NOTIFY signalDataChanged)
 
    public:
-    AlgorithmDataModel(QObject *parent = nullptr);
+    EstimationFuncDataModel(QObject *parent = nullptr);
     int rowCount(const QModelIndex &parent = QModelIndex()) const override;
     int columnCount(const QModelIndex &parent = QModelIndex()) const override;
 
@@ -31,12 +30,10 @@ class AlgorithmDataModel : public QAbstractTableModel {
     void signalDataChanged();
 
    public slots:
-    void slotFinished(gen::AlgorithmResult result);
     void slotSetEstimationFuncData(std::vector<std::pair<double, double>> data);
 
    private:
-    AlgorithmResult m_data;
-    std::vector<std::pair<double, double>> m_estimation_func_data;
+    std::vector<std::pair<double, double>> m_data;
     double m_x_min{0.0};
     double m_x_max{1.0};
     double m_y_min{0.0};

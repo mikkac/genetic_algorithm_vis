@@ -6,8 +6,8 @@ import QtCharts 2.4
 
 Window {
     id: window
-    readonly property int minimumWidth: 1024
-    readonly property int minimumHeight: 720
+    readonly property int minimumWidth: 1400
+    readonly property int minimumHeight: 1000
     width: minimumWidth
     height: minimumHeight
     visible: true
@@ -278,6 +278,44 @@ Window {
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     text: "8"
+                }
+            }
+
+            ChartView {
+                id: chartViewEstimationFunc
+                width: 100
+                height: 100
+                antialiasing: true
+                Layout.fillHeight: true
+                Layout.fillWidth: true
+                Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                theme: ChartView.ChartThemeBlueNcs
+                animationOptions: ChartView.AllAnimations
+                LineSeries {
+                    id: estimationFunc
+                    name: "Estimation Function"
+
+                    axisX: ValueAxis {
+                        id: xAxis
+                        titleText: "x"
+                        min: EstimationFuncDataModel.xMin
+                        max: EstimationFuncDataModel.xMax
+                    }
+
+                    axisY: ValueAxis {
+                        id: yAxis
+                        titleText: "y"
+                        min: EstimationFuncDataModel.yMin
+                        max: EstimationFuncDataModel.yMax
+                    }
+
+                    VXYModelMapper {
+                        id: mapper
+                        series: estimationFunc
+                        xColumn: 0
+                        yColumn: 1
+                        model: EstimationFuncDataModel
+                    }
                 }
             }
         }

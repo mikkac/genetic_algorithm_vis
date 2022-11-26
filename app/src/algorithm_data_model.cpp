@@ -1,9 +1,5 @@
 #include "algorithm_data_model.hpp"
 
-#include <spdlog/spdlog.h>
-
-#include "algorithm_result.hpp"
-
 namespace gen {
 AlgorithmDataModel::AlgorithmDataModel(QObject* parent)
     : QAbstractTableModel(parent) {}
@@ -17,7 +13,6 @@ void AlgorithmDataModel::slotFinished(AlgorithmResult result) {
 
     // Remove old data
     beginResetModel();
-    // m_data.clear();
     m_data = {};
     endResetModel();
 
@@ -33,6 +28,11 @@ void AlgorithmDataModel::slotFinished(AlgorithmResult result) {
     endInsertRows();
 
     emit signalDataChanged();
+}
+
+void AlgorithmDataModel::slotSetEstimationFuncData(
+    std::vector<std::pair<double, double> > data) {
+    m_estimation_func_data = std::move(data);
 }
 
 int AlgorithmDataModel::rowCount(const QModelIndex& index) const {

@@ -25,6 +25,8 @@ void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
     config.mutated_bits_n = mutated_bits_n;
     config.crossing_pos = crossing_pos;
     config.estimate_func = std::move(estimation_func);
+    emit signalEstimationFunctionReady(
+        generateEstimationFuncData(config.estimate_func));
     auto* env{new gen::Environment{std::move(config)}};
 
     m_worker_thread = new QThread;
@@ -33,5 +35,16 @@ void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
     env->moveToThread(m_worker_thread);
     m_worker_thread->start();
     emit env->signalStart();
+}
+
+std::vector<std::pair<double, double>>
+AlgorithmController::generateEstimationFuncData(
+    const AlgorithmConfig::EstimateFunction& estimation_func) {
+    std::vector<std::pair<double, double>> data(200);  // Generate 200 points
+    std::generate(std::begin(data), std::end(data),
+                  [x = 0, &estimation_func]() mutable {
+                      return std::pair(x, estimation_func(Individual(x++)));
+                  });
+    return data;
 }
 }  // namespace gen

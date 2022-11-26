@@ -4,6 +4,7 @@ set(GEN_ALGO_LIB_SRC
     ${CMAKE_CURRENT_SOURCE_DIR}/src/algorithm_controller.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/algorithm_data_model.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/environment.cpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/src/estimation_func_data_model.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/individual.cpp
     ${CMAKE_CURRENT_SOURCE_DIR}/src/utils.cpp
 )
@@ -14,6 +15,7 @@ set(GEN_ALGO_LIB_INC
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_data_model.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/algorithm_result.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/environment.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/inc/estimation_func_data_model.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/individual.hpp
     ${CMAKE_CURRENT_SOURCE_DIR}/inc/utils.hpp
 )
