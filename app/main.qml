@@ -53,7 +53,7 @@ Window {
 
                 axisY: ValueAxis {
                     id: avgYAxis
-                    titleText: "Value"
+                    titleText: "Estimation Function Value"
                     min: AlgorithmDataModel.yMin
                     max: AlgorithmDataModel.yMax
                 }
@@ -186,7 +186,7 @@ Window {
                     Layout.fillHeight: true
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
-                    text: qsTr("100")
+                    text: qsTr("300")
                 }
 
                 Label {
