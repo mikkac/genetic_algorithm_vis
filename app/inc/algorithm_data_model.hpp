@@ -3,6 +3,8 @@
 #include <QAbstractTableModel>
 #include <QPair>
 
+#include "algorithm_result.hpp"
+
 class AlgorithmDataModel : public QAbstractTableModel {
     Q_OBJECT
 
@@ -28,10 +30,10 @@ class AlgorithmDataModel : public QAbstractTableModel {
     void signalDataChanged();
 
    public slots:
-    void slotFinished(const std::vector<double> &results);
+    void slotFinished(AlgorithmResult result);
 
    private:
-    QVector<QPair<double, double>> m_data;
+    AlgorithmResult m_data;
     double m_x_min{0.0};
     double m_x_max{1.0};
     double m_y_min{0.0};

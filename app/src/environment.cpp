@@ -76,15 +76,12 @@ void Environment::printPopulation(const Population& population,
     //                     m_estimate_func(individual));
 }
 
-std::vector<double> Environment::getResults() const {
-    return m_avg_estimations;
-}
-
 void Environment::slotStarted() {
     spdlog::info("Running simulation with {} steps", m_steps);
+    AlgorithmResult result{};
     for (std::size_t step{0}; step < m_steps; ++step) {
         spdlog::info("Step {}", step + 1);
-
+        result.steps.push_back(step + 1);
         // Estimates
         std::vector<float> estimates(m_population.size());
         for (std::size_t i{0}; i < m_population.size(); ++i) {
@@ -94,7 +91,11 @@ void Environment::slotStarted() {
         const auto total_estimation{
             std::accumulate(std::cbegin(estimates), std::cend(estimates), 0)};
 
-        m_avg_estimations.push_back(total_estimation / m_population.size());
+        result.avg.push_back(total_estimation / m_population.size());
+        const auto [min, max]{
+            std::minmax_element(std::cbegin(estimates), std::cend(estimates))};
+        result.min.push_back(*min);
+        result.max.push_back(*max);
 
         // Reproduction probabilities
         std::vector<float> reproduction_probs(m_population.size());
@@ -154,11 +155,7 @@ void Environment::slotStarted() {
         m_population = std::move(mutated);
     }
 
-    spdlog::info("Average estimations:");
-    for (int i{0}; i < m_avg_estimations.size(); ++i)
-        spdlog::info("\t{}\t{}", i, m_avg_estimations[i]);
-
-    emit signalFinished(m_avg_estimations);
+    emit signalFinished(result);
 }
 
 }  // namespace gen

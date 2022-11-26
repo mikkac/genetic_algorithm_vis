@@ -6,6 +6,7 @@
 #include <cstdint>
 #include <functional>
 
+#include "algorithm_result.hpp"
 #include "individual.hpp"
 
 namespace gen {
@@ -26,11 +27,9 @@ class Environment : public QObject {
     void printPopulation(const Population& population,
                          const std::string& desc) const;
 
-    std::vector<double> getResults() const;
-
    signals:
     void signalStart();
-    void signalFinished(const std::vector<double>& results);
+    void signalFinished(AlgorithmResult result);
 
    private slots:
     void slotStarted();
@@ -42,6 +41,5 @@ class Environment : public QObject {
     std::size_t m_mutated_bits_n{};
     std::size_t m_crossing_pos{};
     EstimateFunction m_estimate_func;
-    std::vector<double> m_avg_estimations;
 };
 }  // namespace gen

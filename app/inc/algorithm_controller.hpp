@@ -3,6 +3,8 @@
 #include <QObject>
 #include <QThread>
 
+#include "algorithm_result.hpp"
+
 class AlgorithmController : public QObject {
     Q_OBJECT
 
@@ -10,7 +12,7 @@ class AlgorithmController : public QObject {
     AlgorithmController(QObject* parent = nullptr);
 
    signals:
-    void signalFinished(const std::vector<double> results);
+    void signalFinished(AlgorithmResult results);
 
    public slots:
     void slotRunAlgorithm(std::size_t individuals_n, std::size_t steps,
