@@ -12,6 +12,8 @@ struct AlgorithmConfig {
 
     std::size_t population_size{};
     std::size_t steps{};
+    int initial_min{};
+    int initial_max{};
     double mutation_probability{};
     std::size_t mutated_bits_n{};
     std::size_t crossing_pos{};

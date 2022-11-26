@@ -8,7 +8,6 @@
 
 #include "algorithm_config.hpp"
 #include "algorithm_result.hpp"
-#include "individual.hpp"
 
 namespace gen {
 class Environment : public QObject {
@@ -24,7 +23,7 @@ class Environment : public QObject {
 
    signals:
     void signalStart();
-    void signalFinished(AlgorithmResult result);
+    void signalFinished(gen::AlgorithmResult result);
 
    private slots:
     void slotStarted();

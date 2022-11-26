@@ -10,13 +10,13 @@ namespace {
 void printEnvironment(const gen::Environment::Population population,
                       const auto& estimates, const auto& probs,
                       const auto& ranges) {
-    //    spdlog::info("Environment:");
-    //    for (std::size_t i{0}; i < population.size(); ++i) {
-    //        spdlog::info(
-    //            "\tValue: {:8d}\t\testimate: {:8f}\t\tprob: {:8f}\t\trange:
-    //            {:8f}", (int32_t)population[i].getValue().to_ulong(),
-    //            estimates[i], probs[i], ranges[i]);
-    //    }
+    spdlog::debug("Environment:");
+    for (std::size_t i{0}; i < population.size(); ++i) {
+        spdlog::debug(
+            "\tValue: {:8d}\t\testimate: {:8f}\t\tprob: {:8f}\t\trange:{:8f}",
+            (int32_t)population[i].getValue().to_ulong(), estimates[i],
+            probs[i], ranges[i]);
+    }
 }
 
 int toggleBit(int number, int bit_number) {
@@ -61,18 +61,23 @@ void Environment::printPopulation() const {
 
 void Environment::printPopulation(const Population& population,
                                   const std::string& desc) const {
-    //    spdlog::info(desc);
-    //    for (const auto& individual : population)
-    //        spdlog::info("\tvalue: {}\testimate: {}",
-    //                     (int32_t)individual.getValue().to_ulong(),
-    //                     m_estimate_func(individual));
+    spdlog::debug(desc);
+    for (const auto& individual : population)
+        spdlog::debug("\tvalue: {}\testimate: {}",
+                      (int32_t)individual.getValue().to_ulong(),
+                      m_config.estimate_func(individual));
 }
 
 void Environment::slotStarted() {
-    spdlog::info("Running simulation with {} steps", m_config.steps);
+    spdlog::debug("Running simulation with {} steps", m_config.steps);
     AlgorithmResult result{};
+
+    m_population.reserve(m_config.population_size);
+    std::generate(std::begin(m_population), std::end(m_population), [this]() {
+        return Individual(random_i(m_config.initial_min, m_config.initial_max));
+    });
     for (std::size_t step{0}; step < m_config.steps; ++step) {
-        spdlog::info("Step {}", step + 1);
+        spdlog::debug("Step {}", step + 1);
         result.steps.push_back(step + 1);
         // Estimates
         std::vector<float> estimates(m_population.size());

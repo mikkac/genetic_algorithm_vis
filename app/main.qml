@@ -80,7 +80,6 @@ Window {
                 }
             }
 
-
             LineSeries {
                 id: max
                 name: "Max"
@@ -135,12 +134,16 @@ Window {
                     runButton.text = "Running..."
                     var populationSize = parseInt(populationInput.text)
                     var steps = parseInt(stepsInput.text)
+                    var initialMin = parseInt(initialMinInput.text)
+                    var initialMax = parseInt(initialMaxInput.text)
                     var mutationProbability = parseFloat(mutationProbInput.text)
                     var mutationBits = parseInt(mutationBitsInput.text)
                     var crossPos = parseInt(crossPosInput.text)
                     console.log(populationSize, steps, mutationProbability,
                                 mutationBits, crossPos)
                     AlgorithmController.slotRunAlgorithm(populationSize, steps,
+                                                         initialMin,
+                                                         initialMax,
                                                          mutationProbability,
                                                          mutationBits, crossPos)
                 }
@@ -169,6 +172,42 @@ Window {
                     Layout.fillWidth: true
                     Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     text: "100"
+                }
+
+                Label {
+                    id: initialMinLabel
+                    text: "Initial min. value"
+                    Layout.fillHeight: false
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    clip: false
+                }
+
+                TextField {
+                    id: initialMinInput
+                    width: 50
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    text: "0"
+                }
+
+                Label {
+                    id: initialMaxLabel
+                    text: "Initial max. value"
+                    Layout.fillHeight: false
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    clip: false
+                }
+
+                TextField {
+                    id: initialMaxInput
+                    width: 50
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    text: "10"
                 }
 
                 Label {

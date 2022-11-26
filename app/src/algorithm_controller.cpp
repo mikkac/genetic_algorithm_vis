@@ -6,7 +6,8 @@ namespace gen {
 AlgorithmController::AlgorithmController(QObject* parent) : QObject(parent) {}
 
 void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
-                                           std::size_t steps,
+                                           std::size_t steps, int initial_min,
+                                           int initial_max,
                                            double mutation_probability,
                                            std::size_t mutated_bits_n,
                                            std::size_t crossing_pos) {
@@ -18,6 +19,8 @@ void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
     gen::AlgorithmConfig config{};
     config.population_size = population_size;
     config.steps = steps;
+    config.initial_min = initial_min;
+    config.initial_max = initial_max;
     config.mutation_probability = mutation_probability;
     config.mutated_bits_n = mutated_bits_n;
     config.crossing_pos = crossing_pos;

@@ -8,18 +8,8 @@
 
 #include "algorithm_controller.hpp"
 #include "algorithm_data_model.hpp"
-// #include "configparser.hpp"
 
 int main(int argc, char **argv) {
-    // gen::Configuration config;
-    // int parsing_result{};
-    // if (argc > 1) {
-    //     spdlog::info("Parameters will be loaded from CMD");
-    //     if (const auto parsing_result{config.parseCmd(argc, argv)};
-    //         parsing_result)
-    //         return parsing_result;
-    // }
-
     QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
@@ -43,14 +33,4 @@ int main(int argc, char **argv) {
     engine.load(url);
 
     return app.exec();
-
-    //    gen::Environment env{
-    //        10, [](const gen::Individual& individual) -> double {
-    //            const auto x{(int32_t)individual.getValue().to_ulong()};
-    //            return 1 * x * x;
-    //        }};
-
-    //    env.run(30);
-
-    //    return 0;
 }
