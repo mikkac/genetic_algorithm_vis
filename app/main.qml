@@ -139,8 +139,6 @@ Window {
                     var mutationProbability = parseFloat(mutationProbInput.text)
                     var mutationBits = parseInt(mutationBitsInput.text)
                     var crossPos = parseInt(crossPosInput.text)
-                    console.log(populationSize, steps, mutationProbability,
-                                mutationBits, crossPos)
                     AlgorithmController.slotRunAlgorithm(populationSize, steps,
                                                          initialMin,
                                                          initialMax,
