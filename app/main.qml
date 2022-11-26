@@ -4,7 +4,7 @@ import QtQuick.Controls.Material 2.12
 import QtQuick.Layouts
 import QtCharts 2.4
 
-ApplicationWindow {
+Window {
     id: window
     readonly property int minimumWidth: 1024
     readonly property int minimumHeight: 720
@@ -25,6 +25,7 @@ ApplicationWindow {
             target: AlgorithmDataModel
             function onSignalDataChanged() {
                 runButton.enabled = true
+                runButton.text = "Start"
             }
         }
 
@@ -59,7 +60,9 @@ ApplicationWindow {
                     xColumn: 0
                     yColumn: 1
                     model: AlgorithmDataModel
-                    Component.onCompleted: console.log("loaded VXYModelMapper: xColumn " + mapper.xColumn + " yColumn " + mapper.yColumn)
+                    Component.onCompleted: console.log(
+                                               "loaded VXYModelMapper: xColumn "
+                                               + mapper.xColumn + " yColumn " + mapper.yColumn)
                 }
             }
         }
@@ -91,7 +94,7 @@ ApplicationWindow {
             }
             Button {
                 id: runButton
-                width: 200
+                width: 300
                 text: qsTr("START")
                 Layout.rightMargin: 30
                 Layout.leftMargin: 30
@@ -101,29 +104,115 @@ ApplicationWindow {
                 flat: false
                 onClicked: {
                     runButton.enabled = false
-                    AlgorithmController.slotRunAlgorithm()
+                    runButton.text = "Running..."
+                    var populationSize = parseInt(populationInput.text)
+                    var steps = parseInt(stepsInput.text)
+                    var mutationProbability = parseFloat(mutationProbInput.text)
+                    var mutationBits = parseInt(mutationBitsInput.text)
+                    var crossPos = parseInt(crossPosInput.text)
+                    console.log(populationSize, steps, mutationProbability,
+                                mutationBits, crossPos)
+                    AlgorithmController.slotRunAlgorithm(populationSize, steps,
+                                                         mutationProbability,
+                                                         mutationBits, crossPos)
                 }
             }
 
-            RowLayout {
-                id: row1
+            GridLayout {
+                id: configGrid
+                columns: 2
                 Layout.rightMargin: 30
                 Layout.leftMargin: 30
                 Layout.fillWidth: true
                 Layout.fillHeight: false
                 Label {
-                    id: label2
-                    text: qsTr("Step (s)")
+                    id: populationLabel
+                    text: qsTr("Population size")
+                    Layout.fillHeight: false
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
                     Layout.fillWidth: true
                     clip: false
                 }
 
-                Slider {
-                    id: slider
-                    width: 180
-                    wheelEnabled: true
+                TextField {
+                    id: populationInput
+                    width: 50
+                    Layout.fillHeight: true
                     Layout.fillWidth: true
-                    value: 0.5
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    text: "100"
+                }
+
+                Label {
+                    id: stepsLabel
+                    text: qsTr("Steps")
+                    Layout.fillHeight: false
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    clip: false
+                }
+
+                TextField {
+                    id: stepsInput
+                    width: 50
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    text: qsTr("100")
+                }
+
+                Label {
+                    id: mutationProbLabel
+                    text: qsTr("Mutation probability")
+                    Layout.fillHeight: false
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    clip: false
+                }
+
+                TextField {
+                    id: mutationProbInput
+                    width: 50
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    text: "0.01"
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                }
+
+                Label {
+                    id: mutationBitsLabel
+                    text: qsTr("Number of mutated bits")
+                    Layout.fillHeight: false
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    clip: false
+                }
+
+                TextField {
+                    id: mutationBitsInput
+                    width: 50
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    text: "4"
+                }
+
+                Label {
+                    id: crossPosLabel
+                    text: qsTr("Crossing position")
+                    Layout.fillHeight: false
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    Layout.fillWidth: true
+                    clip: false
+                }
+
+                TextField {
+                    id: crossPosInput
+                    width: 50
+                    Layout.fillHeight: true
+                    Layout.fillWidth: true
+                    Layout.alignment: Qt.AlignHCenter | Qt.AlignVCenter
+                    text: "8"
                 }
             }
         }
