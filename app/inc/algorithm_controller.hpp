@@ -5,6 +5,7 @@
 
 #include "algorithm_result.hpp"
 
+namespace gen {
 class AlgorithmController : public QObject {
     Q_OBJECT
 
@@ -12,7 +13,7 @@ class AlgorithmController : public QObject {
     AlgorithmController(QObject* parent = nullptr);
 
    signals:
-    void signalFinished(AlgorithmResult results);
+    void signalFinished(gen::AlgorithmResult results);
 
    public slots:
     void slotRunAlgorithm(std::size_t population_size, std::size_t steps,
@@ -22,3 +23,4 @@ class AlgorithmController : public QObject {
    private:
     QThread* m_worker_thread;
 };
+}  // namespace gen

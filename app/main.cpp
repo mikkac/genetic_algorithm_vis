@@ -23,10 +23,10 @@ int main(int argc, char **argv) {
     QApplication app(argc, argv);
 
     QQmlApplicationEngine engine;
-    auto *algo_controller{new AlgorithmController(&app)};
-    auto *algo_data_model{new AlgorithmDataModel(&app)};
-    QObject::connect(algo_controller, &AlgorithmController::signalFinished,
-                     algo_data_model, &AlgorithmDataModel::slotFinished);
+    auto *algo_controller{new gen::AlgorithmController(&app)};
+    auto *algo_data_model{new gen::AlgorithmDataModel(&app)};
+    QObject::connect(algo_controller, &gen::AlgorithmController::signalFinished,
+                     algo_data_model, &gen::AlgorithmDataModel::slotFinished);
 
     engine.rootContext()->setContextProperty("AlgorithmController",
                                              algo_controller);

@@ -2,6 +2,7 @@
 
 #include "environment.hpp"
 
+namespace gen {
 AlgorithmController::AlgorithmController(QObject* parent) : QObject(parent) {}
 
 void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
@@ -30,3 +31,4 @@ void AlgorithmController::slotRunAlgorithm(std::size_t population_size,
     m_worker_thread->start();
     emit env->signalStart();
 }
+}  // namespace gen

@@ -4,6 +4,7 @@
 
 #include "algorithm_result.hpp"
 
+namespace gen {
 AlgorithmDataModel::AlgorithmDataModel(QObject* parent)
     : QAbstractTableModel(parent) {}
 
@@ -73,3 +74,4 @@ double AlgorithmDataModel::getXMin() const { return m_x_min; }
 double AlgorithmDataModel::getXMax() const { return m_x_max; }
 double AlgorithmDataModel::getYMin() const { return m_y_min; }
 double AlgorithmDataModel::getYMax() const { return m_y_max; }
+}  // namespace gen

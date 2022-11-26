@@ -2,7 +2,9 @@
 
 #include <vector>
 
-struct AlgorithmResult{
+namespace gen {
+
+struct AlgorithmResult {
     using Data = std::vector<double>;
 
     Data steps{};
@@ -10,3 +12,4 @@ struct AlgorithmResult{
     Data max{};
     Data avg{};
 };
+}  // namespace gen

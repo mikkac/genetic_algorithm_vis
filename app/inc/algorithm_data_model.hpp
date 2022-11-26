@@ -5,6 +5,7 @@
 
 #include "algorithm_result.hpp"
 
+namespace gen {
 class AlgorithmDataModel : public QAbstractTableModel {
     Q_OBJECT
 
@@ -30,7 +31,7 @@ class AlgorithmDataModel : public QAbstractTableModel {
     void signalDataChanged();
 
    public slots:
-    void slotFinished(AlgorithmResult result);
+    void slotFinished(gen::AlgorithmResult result);
 
    private:
     AlgorithmResult m_data;
@@ -39,3 +40,4 @@ class AlgorithmDataModel : public QAbstractTableModel {
     double m_y_min{0.0};
     double m_y_max{1.0};
 };
+}  // namespace gen
