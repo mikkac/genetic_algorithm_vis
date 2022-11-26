@@ -31,6 +31,7 @@ Window {
 
         ChartView {
             id: chartView
+            title: "Results"
             width: 640
             height: 480
             antialiasing: true
@@ -40,29 +41,56 @@ Window {
             theme: ChartView.ChartThemeBlueNcs
             animationOptions: ChartView.AllAnimations
             LineSeries {
-                id: serie1
+                id: avg
+                name: "Avg"
 
                 axisX: ValueAxis {
-                    id: xAxis
+                    id: avgXAxis
+                    titleText: "Steps"
                     min: AlgorithmDataModel.xMin
                     max: AlgorithmDataModel.xMax
                 }
 
                 axisY: ValueAxis {
-                    id: yAxis
+                    id: avgYAxis
+                    titleText: "Value"
                     min: AlgorithmDataModel.yMin
                     max: AlgorithmDataModel.yMax
                 }
 
                 VXYModelMapper {
-                    id: mapper
-                    series: serie1
+                    id: avgMapper
+                    series: avg
                     xColumn: 0
                     yColumn: 1
                     model: AlgorithmDataModel
-                    Component.onCompleted: console.log(
-                                               "loaded VXYModelMapper: xColumn "
-                                               + mapper.xColumn + " yColumn " + mapper.yColumn)
+                }
+            }
+
+            LineSeries {
+                id: min
+                name: "Min"
+
+                VXYModelMapper {
+                    id: minMapper
+                    series: min
+                    xColumn: 0
+                    yColumn: 2
+                    model: AlgorithmDataModel
+                }
+            }
+
+
+            LineSeries {
+                id: max
+                name: "Max"
+
+                VXYModelMapper {
+                    id: maxMapper
+                    series: max
+                    xColumn: 0
+                    yColumn: 3
+                    model: AlgorithmDataModel
                 }
             }
         }
